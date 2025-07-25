@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Summer Geometry Competition Result</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #1d976c, #93f9b9);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 20px;
+      padding: 40px 30px;
+      width: 360px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      backdrop-filter: blur(6px);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .icon {
+      width: 70px;
+      height: 70px;
+      background-color: #edf2f7;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: bounce 1.5s infinite;
+    }
+
+    .icon img {
+      width: 38px;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 5px;
+      line-height: 1.4;
+    }
+
+    p {
+      color: #4a5568;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 12px;
+      width: 100%;
+      border: 2px solid #a0aec0;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      background-color: #e6fffa;
+      color: #2d3748;
+      font-size: 15px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input:focus {
+      border-color: #38b2ac;
+    }
+
+    .result {
+      background-color: #f0fff4;
+      border: 1.5px dashed #68d391;
+      border-radius: 8px;
+      padding: 18px;
+      min-height: 60px;
+      font-size: 16px;
+      color: #22543d;
+      margin-bottom: 25px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-calc {
+      background-color: #f6e05e;
+      color: #2d3748;
+    }
+
+    .btn-calc:hover {
+      background-color: #ecc94b;
+      transform: translateY(-2px);
+    }
+
+    .btn-reset {
+      background-color: #48bb78;
+      color: white;
+    }
+
+    .btn-reset:hover {
+      background-color: #38a169;
+      transform: translateY(-2px);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="icon">
+      <img src="https://img.icons8.com/color/48/trophy.png" alt="Trophy"/>
+    </div>
+    <h2>Summer Geometry<br>Competition Result</h2>
+    <p>Enter your name to see your score.</p>
+    <input type="text" id="nameInput" placeholder="Your name" />
+    <div class="result" id="scoreOutput">Your score awaits...</div>
+    <div class="buttons">
+      <button class="btn btn-calc" onclick="showScore()">⚡ Show Score</button>
+      <button class="btn btn-reset" onclick="resetForm()">🔄 Reset</button>
+    </div>
+  </div>
+
+  <script>
+    const studentData = {
+      "Gaurav": "89 / 100",
+      "Dhyan": "89 / 100",
+      "Maheen": "88 / 100",
+      "Amaani": "88 / 100",
+      "Keerthana": "88 / 100",
+      "Sai": "88 / 100",
+      "Ananya": "86 / 100",
+      "Wambui": "82 / 100",
+      "Anshul": "82 / 100",
+      "Sushanth": "80 / 100",
+      "Sirishree": "80 / 100",
+      "Paul": "80 / 100",
+      "Deshna": "80 / 100",
+      "Irfan": "79 / 100",
+      "Katana": "79 / 100",
+      "Tasin": "79 / 100",
+      "Rachelle": "79 / 100",
+      "Dhanvin": "78 / 100",
+      "Riti": "77 / 100",
+      "Nitin": "76 / 100",
+      "Fatima": "76 / 100",
+      "Aadi": "76 / 100",
+      "Shreevani": "76 / 100",
+      "Ayesha": "76 / 100",
+      "Siddhi": "75 / 100",
+      "Devansh": "75 / 100",
+      "Monique": "74 / 100",
+      "Parker": "74 / 100",
+      "Santiago": "74 / 100",
+      "Kira": "74 / 100",
+      "Lucia": "74 / 100",
+      "Saachi": "73 / 100",
+      "Haasini": "73 / 100",
+      "David": "72 / 100",
+      "Almas": "72 / 100",
+      "Indra": "71 / 100",
+      "Joshua": "70 / 100",
+      "Tijil": "69 / 100",
+      "Ahnaf": "69 / 100",
+      "Dante": "68 / 100",
+      "Dolraj": "68 / 100",
+      "Noor": "68 / 100",
+      "Amir": "68 / 100",
+      "Arnav": "67 / 100",
+      "Pranasya": "67 / 100",
+      "Vania": "67 / 100",
+      "Jiamin": "66 / 100",
+      "Daniel": "66 / 100",
+      "Alex": "65 / 100",
+      "Suchit": "65 / 100",
+      "Siddhesh": "64 / 100",
+      "Raghav": "64 / 100",
+      "Samarth": "64 / 100",
+      "Kaylee": "64 / 100",
+      "Edric": "63 / 100",
+      "Owin": "62 / 100",
+      "Emmanuel": "61 / 100",
+      "Mahesh": "60 / 100",
+      "Nabonita": "60 / 100",
+      "Michael": "59 / 100",
+      "Sonakshi": "59 / 100",
+      "Eshika": "58 / 100",
+      "Aashvi": "58 / 100",
+      "Madison": "57 / 100",
+      "Sadiqah": "57 / 100",
+      "Jeremy": "57 / 100",
+      "Piyush": "57 / 100",
+      "Natalia": "57 / 100",
+      "Gargi": "57 / 100",
+      "Andrew": "56 / 100",
+      "Anish": "56 / 100",
+      "Kinza": "56 / 100",
+      "Layla": "56 / 100",
+      "Nomuun": "56 / 100",
+      "Ivan": "55 / 100",
+      "Aiden": "54 / 100",
+      "Meria": "54 / 100",
+      "Sarah": "53 / 100",
+      "Vrajna": "53 / 100",
+      "Evan": "53 / 100",
+      "Ritesh": "52 / 100",
+      "Ricardo": "52 / 100",
+      "Onabisi": "51 / 100",
+      "Emerson": "50 / 100",
+      "Dung": "50 / 100",
+      "Luna": "50 / 100",
+      "Behshan": "49 / 100",
+      "Turah": "48 / 100",
+      "April": "48 / 100",
+      "Rithik": "48 / 100",
+      "Ciaran": "47 / 100",
+      "Pamela": "47 / 100",
+      "Sewanth": "47 / 100",
+      "Khurshida": "47 / 100",
+      "Shreshta": "46 / 100",
+      "Ariella": "46 / 100",
+      "Yana": "46 / 100",
+      "Yahya": "46 / 100",
+      "Ryan": "45 / 100",
+      "Kristina": "45 / 100",
+      "Selly": "45 / 100",
+      "Fabeha": "45 / 100",
+      "Sri": "45 / 100",
+      "Dima": "45 / 100",
+      "Vansh": "45 / 100",
+      "Caitlyn": "45 / 100",
+      "Hritika": "45 / 100",
+      "Ellie": "45 / 100",
+      "Belen": "44 / 100",
+      "Penelope": "44 / 100",
+      "Amaan": "44 / 100",
+      "Tejasvi": "44 / 100",
+      "Zarin": "44 / 100",
+      "Manasvini": "44 / 100",
+      "Wendy": "43 / 100",
+      "Felicity": "43 / 100",
+      "Sophia": "43 / 100",
+      "Louise": "43 / 100",
+      "Manza": "43 / 100",
+      "William": "43 / 100",
+      "Sanika": "43 / 100",
+      "Toan": "42 / 100",
+      "Sonny": "42 / 100",
+      "Gaurika": "42 / 100",
+      "Dhruvi": "42 / 100",
+      "Nieves": "42 / 100",
+      "Matthew": "41 / 100",
+      "Dee": "41 / 100",
+      "Pranav": "41 / 100",
+      "Liya": "41 / 100",
+      "Vedant": "41 / 100",
+      "Sushmita": "41 / 100",
+      "Himanshu": "41 / 100",
+      "Srinika": "40 / 100",
+      "Joseph": "40 / 100",
+      "Pavel": "40 / 100",
+      "Tsion": "40 / 100",
+      "Parv": "40 / 100",
+      "Maryam": "40 / 100",
+      "Hritika": "39 / 100",
+      "Britton": "39 / 100",
+      "Natalie": "39 / 100",
+      "Yuvraj": "38 / 100",
+      "Eunseo": "38 / 100",
+      "Jannatul": "36 / 100",
+      "Breanna": "36 / 100",
+      "Peace": "36 / 100",
+      "Khizar": "36 / 100",
+      "Daryl": "35 / 100",
+      "Arlyn": "33 / 100",
+      "Aarna": "32 / 100",
+      "Champion": "32 / 100",
+      "Marvelous": "32 / 100",
+      "Luther": "31 / 100",
+      "Aabida": "29 / 100",
+      "Nizar": "29 / 100",
+      "Katrin": "28 / 100",
+      "Shiven": "24 / 100",
+      "Alyan": "24 / 100",
+      "Prakshay": "24 / 100",
+      "Sean": "23 / 100",
+      "Oyin": "22 / 100",
+      "Flo": "20 / 100",
+      "Corey": "18 / 100",
+      "Samantha": "16 / 100",
+      "Yuvraj": "12 / 100",
+      "Abby": "85 / 100",
+      "Jay": "84 / 100",
+      "Alvin": "84 / 100",
+      "Vivi": "83 / 100",
+      "Parsa": "80 / 100",
+      "Joel": "80 / 100",
+      "Shreyas": "80 / 100",
+      "Shavin": "78 / 100",
+      "Yintong": "78 / 100",
+      "Steve": "77 / 100",
+      "Doelle": "74 / 100",
+      "Marco": "74 / 100",
+      "Saumya": "72 / 100",
+      "Tsega": "72 / 100",
+      "Jayden": "70 / 100",
+      "Monica": "69 / 100",
+      "Maxwell": "68 / 100",
+      "Dhayashree": "68 / 100",
+      "Satvik": "68 / 100",
+      "Tinsae": "68 / 100",
+      "Piyush": "66 / 100",
+      "Yagya": "65 / 100",
+      "Vignesh": "64 / 100",
+      "Sofiat": "64 / 100",
+      "Arko": "63 / 100",
+      "Elle": "62 / 100",
+      "Yudhish": "62 / 100",
+      "Harry": "61 / 100",
+      "Varsha": "61 / 100",
+      "Saleh": "60 / 100",
+      "Daksh": "60 / 100",
+      "Justin": "59 / 100",
+      "Yoon Ha": "59 / 100",
+      "Stuti": "58 / 100",
+      "Rivi": "57 / 100",
+      "Ethan": "56 / 100",
+      "Jeremy": "55 / 100",
+      "Arnav": "54 / 100",
+      "Katelyn": "53 / 100",
+      "Anton": "53 / 100",
+      "Shiven": "53 / 100",
+      "Ainesh": "53 / 100",
+      "Afia": "52 / 100",
+      "Zhuo Zhan": "52 / 100",
+      "Anika": "52 / 100",
+      "Sudivya": "51 / 100",
+      "Ayush": "51 / 100",
+      "Eriko": "51 / 100",
+      "Siddharth": "50 / 100",
+      "Dana": "50 / 100",
+      "Sohayb": "49 / 100",
+      "Truman": "49 / 100",
+      "Akilesh": "48 / 100",
+      "Liam": "48 / 100",
+      "Naoto": "48 / 100",
+      "Mingshen": "48 / 100",
+      "Christopher": "48 / 100",
+      "Myth": "48 / 100",
+      "Suhaas": "47 / 100",
+      "Kien": "47 / 100",
+      "Max": "47 / 100",
+      "Akshat": "46 / 100",
+      "Avneesh": "45 / 100",
+      "Amanda": "45 / 100",
+      "Dawei": "45 / 100",
+      "Bowen": "44 / 100",
+      "Pranavi": "43 / 100",
+      "Angela": "43 / 100",
+      "Siddh": "43 / 100",
+      "Sarra": "43 / 100",
+      "Leo": "42 / 100",
+      "Jai": "42 / 100",
+      "Anderson": "41 / 100",
+      "Sophia": "41 / 100",
+      "Arav": "41 / 100",
+      "Hamasa": "41 / 100",
+      "Isaac": "40 / 100",
+      "Xinyue": "39 / 100",
+      "Sophie": "39 / 100",
+      "Samuel": "39 / 100",
+      "Syed Badiuddin": "38 / 100",
+      "Rebekah": "37 / 100",
+      "Eduardo": "35 / 100",
+      "Nainika": "35 / 100",
+      "Dhruv": "35 / 100",
+      "Anamaria": "33 / 100",
+      "Arjun": "32 / 100",
+      "Ruthvik": "32 / 100",
+      "Kena": "32 / 100",
+      "Saksham": "31 / 100",
+      "Lucas": "31 / 100",
+      "Tasheen Uzzaman": "29 / 100",
+      "Celine": "29 / 100",
+      "Hey": "28 / 100",
+      "Sim": "28 / 100",
+      "Rahi": "27 / 100",
+      "Yu-Feng": "25 / 100",
+      "Helen": "24 / 100",
+      "Navya": "20 / 100",
+      "ME": "20 / 100",
+      "Rithvika": "11 / 100"
+    };
+
+    function showScore() {
+      const name = document.getElementById("nameInput").value.trim();
+      const output = document.getElementById("scoreOutput");
+      
+      if (name in studentData) {
+        const score = studentData[name].split('/')[0].trim();
+        output.innerHTML = `Hey <strong>${name}</strong>, your score is <strong>${studentData[name]}</strong>! ${score > 70 ? '🎉' : '👍'}`;
+      } else {
+        output.textContent = "Name not found in records";
+      }
+    }
+
+    function resetForm() {
+      document.getElementById("nameInput").value = "";
+      document.getElementById("scoreOutput").textContent = "Your score awaits...";
+    }
+
+    // Allow pressing Enter key to search
+    document.getElementById("nameInput").addEventListener("keyup", function(event) {
+      if (event.key === "Enter") {
+        showScore();
+      }
+    });
+  </script>
+</body>
+</html>
